@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-
-/*
+﻿/*
 A palindromic number reads the same both ways. The largest palindrome made from the product of two 2-digit numbers is 9009 = 91 × 99.
 
 Find the largest palindrome made from the product of two 3-digit numbers.
@@ -13,38 +10,42 @@ namespace LargestPalindromeProduct
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(WorkItOut.GetPalindrome());
+            Console.WriteLine(Palindrome.GetPalindrome());
         }
     }
 
-    public static class WorkItOut
+    public static class Palindrome
     {
+
         public static int GetPalindrome()
         {
             var result = 0;
 
-            // outer will be first loop
-            for (int i = 10; i < 1000; i++)
+            for (int i = 999; i > 99; i--)
             {
-                // go through the numbers from 100 to 1000
-                for (int x = 10; x < 1000; x++)
+                for (int j = i; j > 99; j--)
                 {
-                    // work out the product
-                    var y = i * x;
-                    //var yb = y.ToString();
+                    var currentResult = Multiply(i, j);
 
-                    var yb = new string(y.ToString().Reverse().ToArray());
-
-                    // figure out if this is a palindrome
-                    if (y.ToString() == yb)
+                    if (IsPalindrome(currentResult) && currentResult > result)
                     {
-                        if (y > result) result = y;
-                    }
+                        result = currentResult;
+                    };
                 }
 
             }
 
             return result;
+        }
+
+        private static bool IsPalindrome(int number)
+        {
+            return new string(number.ToString().Reverse().ToArray()) == number.ToString();
+        }
+
+        private static int Multiply(int i, int j)
+        {
+            return i * j;
         }
     }
 
